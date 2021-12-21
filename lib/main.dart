@@ -27,9 +27,19 @@ class PizzaAppHomePage extends StatefulWidget {
   State<PizzaAppHomePage> createState() => _PizzaAppHomePageState();
 }
 
+enum Souce { ostr, kislslad, sirn }
+
 class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
   bool _isTonkoeTesto = false;
   double _pizzaRadius = 15;
+  Souce? _souce = Souce.ostr;
+  bool _addCheese = true;
+
+  void _onSouceChanged(Souce? value) {
+    setState(() {
+      _souce = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,24 +53,13 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
           Align(
             alignment: Alignment.topRight,
             child: Container(
-              width: 200, //MediaQuery.of(context).size.width ,
+              width: 170, //MediaQuery.of(context).size.width ,
               child: Image.network(
-                  'https://staticy.dominospizza.ru/api/medium/ProductOsg/Web/CHIKS4/NULL/NULL/RU'),
-              transform: Matrix4.translationValues(1, -35.0, 0.0),
+                'https://staticy.dominospizza.ru/api/medium/ProductOsg/Web/CHIKS4/NULL/NULL/RU',
+              ),
+              transform: Matrix4.translationValues(-20, -30, 0),
             ),
           ),
-          // Container(
-          //   width: MediaQuery.of(context).size.width,
-          //   height: 200,
-          //   decoration: const BoxDecoration(
-          //     image: DecorationImage(
-          //       //fit: BoxFit.fitHeight,
-          //       image: NetworkImage(
-          //           'https://staticy.dominospizza.ru/api/medium/ProductOsg/Web/CHIKS4/NULL/NULL/RU'),
-          //     ),
-          //   ),
-          // ),
-          const SizedBox(height: 20),
           const Text(
             appTitle,
             textAlign: TextAlign.center,
@@ -70,7 +69,7 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
               fontWeight: FontWeight.w600,
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           const Text(
             "Выберите параметры:",
             textAlign: TextAlign.center,
@@ -111,6 +110,7 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
             buttonColor: const Color(0xfff7f5f7),
             inactiveColor: const Color(0xff636f7b),
           ),
+          Divider(),
           Container(
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.only(top: 20, left: 20),
@@ -134,473 +134,86 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
               });
             },
           ),
-          Stack(
-            children: [
-              Container(
-                //width: 320,
-                //height: 582,
-                padding: const EdgeInsets.all(20)
-                //left: 10,
-                //right: 9,
-                //top: 154,
-                //bottom: 37,
-                ,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      width: 300,
-                      height: 64,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 9),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10.71),
-                    Container(
-                      width: 300,
-                      height: 34,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 300,
-                            height: 34,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(36),
-                              color: Color(0xffeceff1),
-                            ),
-                            child: Stack(
-                              children: [
-                                Positioned.fill(
-                                  child: Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Container(
-                                      width: 150,
-                                      height: 34,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(83),
-                                        color: Color(0xff0078d0),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  left: 20,
-                                  top: 7,
-                                  child: Text(
-                                    "Обычное тесто",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  left: 175,
-                                  top: 7,
-                                  child: Text(
-                                    "Тонкое тесто",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Color(0x66000000),
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10.71),
-                    SizedBox(height: 10.71),
-                    Container(
-                      width: 300,
-                      height: 34,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Color(0xffeceff1),
-                      ),
-                    ),
-                    SizedBox(height: 10.71),
-                    Text(
-                      "Соус:",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                    SizedBox(height: 10.71),
-                    Container(
-                      width: 293,
-                      height: 48,
-                      padding: const EdgeInsets.only(
-                        top: 15,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Острый",
-                            style: TextStyle(
-                              color: Color(0xff333333),
-                              fontSize: 16,
-                              fontFamily: "Inter",
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Container(
-                            width: 16,
-                            height: 16,
-                            child: Stack(
-                              children: [
-                                Container(
-                                  width: 16,
-                                  height: 16,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: Color(0xff4b9360),
-                                      width: 1,
-                                    ),
-                                  ),
-                                ),
-                                Positioned.fill(
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Container(
-                                      width: 12,
-                                      height: 12,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Color(0xff5db074),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 293,
-                            height: 1,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10.71),
-                    Container(
-                      width: 293,
-                      height: 48,
-                      padding: const EdgeInsets.only(
-                        top: 16,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Кисло-сладкий",
-                            style: TextStyle(
-                              color: Color(0xff333333),
-                              fontSize: 16,
-                              fontFamily: "Inter",
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Container(
-                            width: 16,
-                            height: 16,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Color(0xff333333),
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 293,
-                            height: 1,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10.71),
-                    Container(
-                      width: 293,
-                      height: 48,
-                      padding: const EdgeInsets.only(
-                        top: 16,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Сырный",
-                            style: TextStyle(
-                              color: Color(0xff333333),
-                              fontSize: 16,
-                              fontFamily: "Inter",
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Container(
-                            width: 16,
-                            height: 16,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Color(0xff333333),
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 293,
-                            height: 1,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+          const SizedBox(height: 3),
+          Divider(),
+          Container(
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(left: 20),
+            child: const Text(
+              "Соус:",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
               ),
-              Positioned(
-                left: 25,
-                top: 630,
-                child: Text(
-                  "Стоимость:",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 18,
-                top: 564,
-                child: Container(
-                  width: 291,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Color(0xfff0f0f0),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 291,
-                        height: 56,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Container(
-                              width: 291,
-                              height: 56,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    left: 48,
-                                    top: 8,
-                                    child: SizedBox(
-                                      width: 203,
-                                      height: 40,
-                                      child: Text(
-                                        "Дополнительный сыр",
-                                        style: TextStyle(
-                                          color: Color(0xff263238),
-                                          fontSize: 16,
-                                          letterSpacing: 0.16,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 235,
-                                    top: 16,
-                                    child: Container(
-                                      width: 40,
-                                      height: 24,
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 40,
-                                            height: 24,
-                                            child: Stack(
-                                              children: [
-                                                Positioned.fill(
-                                                  child: Align(
-                                                    alignment: Alignment.center,
-                                                    child: Opacity(
-                                                      opacity: 0.24,
-                                                      child: Container(
-                                                        width: 34,
-                                                        height: 14,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(34),
-                                                          color:
-                                                              Color(0xff0e4ca4),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Positioned.fill(
-                                                  child: Align(
-                                                    alignment:
-                                                        Alignment.topRight,
-                                                    child: Container(
-                                                      width: 20,
-                                                      height: 20,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20),
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                            color: Color(
-                                                                0x89304ffe),
-                                                            blurRadius: 2,
-                                                            offset:
-                                                                Offset(0, 1),
-                                                          ),
-                                                        ],
-                                                        color:
-                                                            Color(0xff0e4ca4),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned.fill(
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Container(
-                                        width: 36,
-                                        height: 34,
-                                        child: FlutterLogo(size: 34),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: SizedBox(
-                    width: 340,
-                    height: 39,
-                    child: Text(
-                      "Соус:",
-                      style: TextStyle(
-                        color: Color(0xff263238),
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w600,
+            ),
+          ),
+          SizedBox(
+            height: 30,
+            child: RadioListTile<Souce>(
+              title: const Text('Острый'),
+              value: Souce.ostr,
+              groupValue: _souce,
+              onChanged: _onSouceChanged,
+            ),
+          ),
+          SizedBox(
+            height: 30,
+            child: RadioListTile<Souce>(
+              title: const Text('Кисло-сладкий'),
+              value: Souce.kislslad,
+              groupValue: _souce,
+              onChanged: _onSouceChanged,
+            ),
+          ),
+          SizedBox(
+            height: 30,
+            child: RadioListTile<Souce>(
+              title: const Text('Сырный'),
+              value: Souce.sirn,
+              groupValue: _souce,
+              onChanged: _onSouceChanged,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 5.0),
+            child: Divider(),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: Card(
+              elevation: 8,
+              color: Color(0xFFF0F0F0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 20,
+                    ),
+                    child: SizedBox(
+                      width: 70,
+                      height: 70,
+                      child: Image.network(
+                        'https://cdn.cnn.com/cnnnext/dam/assets/211125191831-01-europe-best-cheeses-112521-full-169.jpg',
                       ),
                     ),
                   ),
-                ),
-              ),
-              Positioned(
-                left: 83,
-                top: 728,
-                child: Container(
-                  width: 154,
-                  height: 42,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 154,
-                        height: 42,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(22),
-                          color: Color(0xff0078d0),
-                        ),
-                        padding: const EdgeInsets.only(
-                          top: 11,
-                          bottom: 12,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Заказать",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontFamily: "Roboto",
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  Text('Дополнительный сыр'),
+                  Switch(
+                    value: _addCheese,
+                    onChanged: (bool value) {
+                      setState(() {
+                        _addCheese = value;
+                      });
+                    },
+                    activeThumbImage: new NetworkImage(
+                        'https://www.freeiconspng.com/thumbs/yes-png/yes-png-9.png'),
+                    inactiveThumbImage: new NetworkImage(
+                        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/No_sign.svg/300px-No_sign.svg.png'),
                   ),
-                ),
+                ],
               ),
-              Positioned(
-                left: 10,
-                top: 661,
-                child: Container(
-                  width: 300,
-                  height: 34,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(36),
-                    color: Color(0xffeceff1),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ],
       ),
