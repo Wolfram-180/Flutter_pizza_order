@@ -30,19 +30,75 @@ class PizzaAppHomePage extends StatefulWidget {
 enum Souce { ostr, kislslad, sirn }
 
 class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
+  double _cost = 0;
   bool _isTonkoeTesto = false;
-  double _pizzaRadius = 15;
+  int _pizzaRadius = 15;
   Souce? _souce = Souce.ostr;
-  bool _addCheese = true;
+  bool _addCheese = false;
+
+  double _calcCost() {
+    _cost = 0;
+    if (_isTonkoeTesto) {
+      _cost += 50;
+    } else {
+      _cost += 100;
+    }
+
+    switch (_pizzaRadius) {
+      case 15:
+        _cost += 150;
+        break;
+      case 30:
+        _cost += 200;
+        break;
+      case 45:
+        _cost += 300;
+        break;
+      case 60:
+        _cost += 500;
+        break;
+    }
+
+    switch (_souce) {
+      case Souce.ostr:
+        _cost += 60;
+        break;
+      case Souce.kislslad:
+        _cost += 30;
+        break;
+      case Souce.sirn:
+        _cost += 40;
+        break;
+    }
+
+    _addCheese == true ? _cost += 100 : _cost += 0;
+
+    return _cost;
+  }
 
   void _onSouceChanged(Souce? value) {
     setState(() {
       _souce = value;
+      setState(() {
+        _calcCost();
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    const bigHeader = TextStyle(
+      color: Colors.black,
+      fontSize: 30,
+      fontWeight: FontWeight.w600,
+    );
+
+    final ButtonStyle buyBtnStyle = ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+                side: BorderSide(color: Colors.red))));
+
     return Scaffold(
         //appBar: AppBar(title: Text(appTitle)),
         body: Container(
@@ -63,11 +119,7 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
           const Text(
             appTitle,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 30,
-              fontWeight: FontWeight.w600,
-            ),
+            style: bigHeader,
           ),
           const SizedBox(height: 10),
           const Text(
@@ -94,8 +146,11 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
           SlidingSwitch(
             value: _isTonkoeTesto,
             width: 280,
-            onChanged: (bool _isTonkoeTesto) {
-              _isTonkoeTesto = !_isTonkoeTesto;
+            onChanged: (bool value) {
+              _isTonkoeTesto = value;
+              setState(() {
+                _calcCost();
+              });
             },
             height: 35,
             animationDuration: const Duration(milliseconds: 400),
@@ -123,14 +178,17 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
             ),
           ),
           Slider(
-            value: _pizzaRadius,
+            value: _pizzaRadius.toDouble(),
             min: 15,
             max: 60,
             divisions: 3,
             label: _pizzaRadius.round().toString(),
             onChanged: (double value) {
               setState(() {
-                _pizzaRadius = value;
+                _pizzaRadius = value.toInt();
+                setState(() {
+                  _calcCost();
+                });
               });
             },
           ),
@@ -204,6 +262,7 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
                     onChanged: (bool value) {
                       setState(() {
                         _addCheese = value;
+                        _calcCost();
                       });
                     },
                     activeThumbImage: new NetworkImage(
@@ -214,6 +273,25 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
                 ],
               ),
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                "Рассчитанная стоимость: ${_calcCost()} руб.",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ),
+          ElevatedButton(
+            style: buyBtnStyle,
+            onPressed: () {},
+            child: const Text('Заказать'),
           ),
         ],
       ),
