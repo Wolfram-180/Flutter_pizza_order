@@ -39,21 +39,27 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
       color: Colors.white,
       child: Column(
         children: [
-          const SizedBox(height: 60),
+          //const SizedBox(height: 60),
           Align(
             alignment: Alignment.topRight,
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: 100,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fitHeight,
-                  image: NetworkImage(
-                      'https://images.saymedia-content.com/.image/t_share/MTc2MjcyOTg3MTczOTU0NzMz/best-cicis-pizza-types.png'),
-                ),
-              ),
+              width: 200, //MediaQuery.of(context).size.width ,
+              child: Image.network(
+                  'https://staticy.dominospizza.ru/api/medium/ProductOsg/Web/CHIKS4/NULL/NULL/RU'),
+              transform: Matrix4.translationValues(1, -35.0, 0.0),
             ),
           ),
+          // Container(
+          //   width: MediaQuery.of(context).size.width,
+          //   height: 200,
+          //   decoration: const BoxDecoration(
+          //     image: DecorationImage(
+          //       //fit: BoxFit.fitHeight,
+          //       image: NetworkImage(
+          //           'https://staticy.dominospizza.ru/api/medium/ProductOsg/Web/CHIKS4/NULL/NULL/RU'),
+          //     ),
+          //   ),
+          // ),
           const SizedBox(height: 20),
           const Text(
             appTitle,
@@ -70,16 +76,20 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black,
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 20),
-          Text(
-            "Размер:",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 18,
+          Container(
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(left: 20, bottom: 7),
+            child: const Text(
+              "Тип теста:",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+              ),
             ),
           ),
           SlidingSwitch(
@@ -100,6 +110,17 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
             background: const Color(0xffe4e5eb),
             buttonColor: const Color(0xfff7f5f7),
             inactiveColor: const Color(0xff636f7b),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(top: 20, left: 20),
+            child: Text(
+              "Радиус пиццы, в см: $_pizzaRadius",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+              ),
+            ),
           ),
           Slider(
             value: _pizzaRadius,
