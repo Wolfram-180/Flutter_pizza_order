@@ -69,6 +69,8 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
       case Souce.sirn:
         _cost += 40;
         break;
+      default:
+        _cost += 0;
     }
 
     _addCheese == true ? _cost += 100 : _cost += 0;
@@ -91,6 +93,11 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
       color: Colors.black,
       fontSize: 30,
       fontWeight: FontWeight.w600,
+    );
+
+    const headerTxt1 = TextStyle(
+      color: Colors.black,
+      fontSize: 18,
     );
 
     final ButtonStyle buyBtnStyle = ButtonStyle(
@@ -137,10 +144,7 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
             padding: const EdgeInsets.only(left: 20, bottom: 7),
             child: const Text(
               "Тип теста:",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-              ),
+              style: headerTxt1,
             ),
           ),
           SlidingSwitch(
@@ -171,10 +175,7 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
             padding: const EdgeInsets.only(top: 20, left: 20),
             child: Text(
               "Радиус пиццы, в см: $_pizzaRadius",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-              ),
+              style: headerTxt1,
             ),
           ),
           Slider(
@@ -199,10 +200,7 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
             padding: const EdgeInsets.only(left: 20),
             child: const Text(
               "Соус:",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-              ),
+              style: headerTxt1,
             ),
           ),
           SizedBox(
