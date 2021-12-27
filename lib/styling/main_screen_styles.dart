@@ -11,15 +11,12 @@ ThemeData globalThemeLight() => ThemeData(
       ),
       textTheme: const TextTheme(
         headline1: TextStyle(
-          //fontSize: 72.0,
           fontWeight: FontWeight.bold,
         ),
         headline6: TextStyle(
-          //fontSize: 36.0,
           fontStyle: FontStyle.italic,
         ),
         bodyText2: TextStyle(
-          //fontSize: 18.0,
           fontFamily: 'Hind',
         ),
         headline5: TextStyle(
@@ -40,15 +37,12 @@ ThemeData globalThemeDark() => ThemeData(
       ),
       textTheme: const TextTheme(
         headline1: TextStyle(
-          //fontSize: 72.0,
           fontWeight: FontWeight.bold,
         ),
         headline6: TextStyle(
-          //fontSize: 36.0,
           fontStyle: FontStyle.italic,
         ),
         bodyText2: TextStyle(
-          //fontSize: 18.0,
           fontFamily: 'Hind',
         ),
         headline5: TextStyle(
@@ -57,17 +51,6 @@ ThemeData globalThemeDark() => ThemeData(
         ),
       ),
     );
-
-// TextStyle bigHeader() => TextStyle(
-//       color: Colors.black,
-//       fontSize: 30,
-//       fontWeight: FontWeight.w600,
-//     );
-//
-// TextStyle headerTxt1() => TextStyle(
-//       color: Colors.black,
-//       fontSize: 18,
-//     );
 
 final ButtonStyle buyBtnStyle = ButtonStyle(
   shape: MaterialStateProperty.all<RoundedRectangleBorder>(

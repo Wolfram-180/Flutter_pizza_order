@@ -121,24 +121,6 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
               dopSirWidget(context),
               stoimostWidget(),
               orderButtonWidget(),
-              // IconButton(
-              //   icon: Icon(
-              //     _icon,
-              //     color: Colors.white,
-              //     size: 30,
-              //   ),
-              //   onPressed: () {
-              //     setState(() {
-              //       if (_icon == Icons.wb_sunny) {
-              //         _icon = Icons.brightness_2;
-              //         themeChange.darkTheme = true;
-              //       } else {
-              //         _icon = Icons.wb_sunny;
-              //         themeChange.darkTheme = false;
-              //       }
-              //     });
-              //   },
-              // ),
             ],
           ),
         ),
@@ -155,7 +137,6 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
         child: Text(
           "Рассчитанная стоимость: ${_calcCost()} руб.",
           style: Theme.of(context).textTheme.headline5,
-          //TextStyle(color: ,   fontSize: 20,     ),
         ),
       ),
     );
@@ -166,8 +147,6 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
       width: MediaQuery.of(context).size.width * 0.9,
       child: Card(
         elevation: 8,
-        //color: Theme.of(context).colorScheme.secondary,
-        //Color(0xFFF0F0F0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
