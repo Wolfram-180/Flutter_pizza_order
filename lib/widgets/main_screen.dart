@@ -34,7 +34,7 @@ class testoTypeTextWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 20, bottom: 7),
       child: Text(
         "Тип теста:",
-        style: headerTxt1(),
+        style: Theme.of(context).textTheme.headline5,
       ),
     );
   }
@@ -47,14 +47,11 @@ class chooseParamsTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
+    return Text(
       "Выберите параметры:",
       textAlign: TextAlign.center,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-      ),
+      style: Theme.of(context).textTheme.headline5,
+      //TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
     );
   }
 }
@@ -72,7 +69,7 @@ class appTitleTextWidget extends StatelessWidget {
     return Text(
       text,
       textAlign: TextAlign.center,
-      style: bigHeader(),
+      style: Theme.of(context).textTheme.headline4,
     );
   }
 }
@@ -90,10 +87,10 @@ class pizzaSizeTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.only(top: 20, left: 20),
+      padding: EdgeInsets.only(top: 20, left: 20),
       child: Text(
         "Радиус пиццы, в см: $_pizzaRadius",
-        style: headerTxt1(),
+        style: Theme.of(context).textTheme.headline5,
       ),
     );
   }
@@ -126,7 +123,7 @@ class souceTextWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 20),
       child: Text(
         "Соус:",
-        style: headerTxt1(),
+        style: Theme.of(context).textTheme.headline5,
       ),
     );
   }

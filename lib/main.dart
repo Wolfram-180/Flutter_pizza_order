@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pizza_order/widgets/main_screen.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 
+import 'styling/main_screen_styles.dart';
+
 void main() {
   runApp(const PizzaApp());
 }
@@ -13,10 +15,9 @@ class PizzaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: appTitle,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: globalThemeLight(),
       home: const PizzaAppHomePage(),
     );
   }
@@ -36,6 +37,8 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
   int _pizzaRadius = 15;
   Souce? _souce = Souce.ostr;
   bool _addCheese = false;
+
+  var _icon = Icons.wb_sunny;
 
   double _calcCost() {
     _cost = 0;
@@ -94,7 +97,7 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
       //appBar: AppBar(title: Text(appTitle)),
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.white,
+          //color: Colors.white,
           child: Column(
             children: [
               pizzaPhotoInCornerWidget(),
@@ -113,11 +116,29 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
               souceOstriiWidget(),
               souceKisliiWidget(),
               souceSirniiWidget(),
-              Padding(
-                  padding: const EdgeInsets.only(top: 5.0), child: Divider()),
+              const SizedBox(height: 5),
+              const Divider(),
               dopSirWidget(context),
               stoimostWidget(),
               orderButtonWidget(),
+              // IconButton(
+              //   icon: Icon(
+              //     _icon,
+              //     color: Colors.white,
+              //     size: 30,
+              //   ),
+              //   onPressed: () {
+              //     setState(() {
+              //       if (_icon == Icons.wb_sunny) {
+              //         _icon = Icons.brightness_2;
+              //         themeChange.darkTheme = true;
+              //       } else {
+              //         _icon = Icons.wb_sunny;
+              //         themeChange.darkTheme = false;
+              //       }
+              //     });
+              //   },
+              // ),
             ],
           ),
         ),
@@ -133,10 +154,8 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
         padding: const EdgeInsets.all(10),
         child: Text(
           "Рассчитанная стоимость: ${_calcCost()} руб.",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-          ),
+          style: Theme.of(context).textTheme.headline5,
+          //TextStyle(color: ,   fontSize: 20,     ),
         ),
       ),
     );
@@ -147,7 +166,8 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
       width: MediaQuery.of(context).size.width * 0.9,
       child: Card(
         elevation: 8,
-        color: Color(0xFFF0F0F0),
+        //color: Theme.of(context).colorScheme.secondary,
+        //Color(0xFFF0F0F0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -163,7 +183,10 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
                 ),
               ),
             ),
-            Text('Дополнительный сыр'),
+            Text(
+              'Дополнительный сыр',
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
             Switch(
               value: _addCheese,
               onChanged: (bool value) {
@@ -244,21 +267,28 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
     );
   }
 
-  Slider pizzaSizeSliderWidget_method() {
-    return Slider(
-      value: _pizzaRadius.toDouble(),
-      min: 15,
-      max: 60,
-      divisions: 3,
-      label: _pizzaRadius.round().toString(),
-      onChanged: (double value) {
-        setState(() {
-          _pizzaRadius = value.toInt();
+  SliderTheme pizzaSizeSliderWidget_method() {
+    return SliderTheme(
+      data: SliderThemeData(
+        thumbColor: Theme.of(context).splashColor, //Colors.green,
+        thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10),
+        showValueIndicator: ShowValueIndicator.never,
+      ),
+      child: Slider(
+        value: _pizzaRadius.toDouble(),
+        min: 15,
+        max: 60,
+        divisions: 3,
+        label: _pizzaRadius.round().toString(),
+        onChanged: (double value) {
           setState(() {
-            _calcCost();
+            _pizzaRadius = value.toInt();
+            setState(() {
+              _calcCost();
+            });
           });
-        });
-      },
+        },
+      ),
     );
   }
 }
