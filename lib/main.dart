@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pizza_order/widgets/main_screen.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 
 void main() {
@@ -89,210 +90,175 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    const bigHeader = TextStyle(
-      color: Colors.black,
-      fontSize: 30,
-      fontWeight: FontWeight.w600,
-    );
-
-    const headerTxt1 = TextStyle(
-      color: Colors.black,
-      fontSize: 18,
-    );
-
-    final ButtonStyle buyBtnStyle = ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-                side: BorderSide(color: Colors.red))));
-
     return Scaffold(
-        //appBar: AppBar(title: Text(appTitle)),
-        body: Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          //const SizedBox(height: 60),
-          Align(
-            alignment: Alignment.topRight,
-            child: Container(
-              width: 170, //MediaQuery.of(context).size.width ,
-              child: Image.network(
-                'https://staticy.dominospizza.ru/api/medium/ProductOsg/Web/CHIKS4/NULL/NULL/RU',
+      //appBar: AppBar(title: Text(appTitle)),
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            children: [
+              pizzaPhotoInCornerWidget(),
+              appTitleTextWidget(text: appTitle),
+              const SizedBox(height: 10),
+              chooseParamsTextWidget(),
+              const SizedBox(height: 20),
+              testoTypeTextWidget(),
+              tipTestaSlidingSwitchWidget(),
+              Divider(),
+              pizzaSizeTextWidget(pizzaRadius: _pizzaRadius),
+              pizzaSizeSliderWidget_method(),
+              const SizedBox(height: 3),
+              const Divider(),
+              souceTextWidget(),
+              souceOstriiWidget(),
+              souceKisliiWidget(),
+              souceSirniiWidget(),
+              Padding(
+                  padding: const EdgeInsets.only(top: 5.0), child: Divider()),
+              dopSirWidget(context),
+              stoimostWidget(),
+              orderButtonWidget(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding stoimostWidget() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(10),
+        child: Text(
+          "Рассчитанная стоимость: ${_calcCost()} руб.",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+          ),
+        ),
+      ),
+    );
+  }
+
+  SizedBox dopSirWidget(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.9,
+      child: Card(
+        elevation: 8,
+        color: Color(0xFFF0F0F0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 20,
               ),
-              transform: Matrix4.translationValues(-20, -30, 0),
-            ),
-          ),
-          const Text(
-            appTitle,
-            textAlign: TextAlign.center,
-            style: bigHeader,
-          ),
-          const SizedBox(height: 10),
-          const Text(
-            "Выберите параметры:",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(left: 20, bottom: 7),
-            child: const Text(
-              "Тип теста:",
-              style: headerTxt1,
-            ),
-          ),
-          SlidingSwitch(
-            value: _isTonkoeTesto,
-            width: 280,
-            onChanged: (bool value) {
-              _isTonkoeTesto = value;
-              setState(() {
-                _calcCost();
-              });
-            },
-            height: 35,
-            animationDuration: const Duration(milliseconds: 400),
-            onTap: () {},
-            onDoubleTap: () {},
-            onSwipe: () {},
-            textOff: "Обычное тесто",
-            textOn: "Тонкое тесто",
-            colorOn: const Color(0xffdc6c73),
-            colorOff: const Color(0xff6682c0),
-            background: const Color(0xffe4e5eb),
-            buttonColor: const Color(0xfff7f5f7),
-            inactiveColor: const Color(0xff636f7b),
-          ),
-          Divider(),
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(top: 20, left: 20),
-            child: Text(
-              "Радиус пиццы, в см: $_pizzaRadius",
-              style: headerTxt1,
-            ),
-          ),
-          Slider(
-            value: _pizzaRadius.toDouble(),
-            min: 15,
-            max: 60,
-            divisions: 3,
-            label: _pizzaRadius.round().toString(),
-            onChanged: (double value) {
-              setState(() {
-                _pizzaRadius = value.toInt();
-                setState(() {
-                  _calcCost();
-                });
-              });
-            },
-          ),
-          const SizedBox(height: 3),
-          Divider(),
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(left: 20),
-            child: const Text(
-              "Соус:",
-              style: headerTxt1,
-            ),
-          ),
-          SizedBox(
-            height: 30,
-            child: RadioListTile<Souce>(
-              title: const Text('Острый'),
-              value: Souce.ostr,
-              groupValue: _souce,
-              onChanged: _onSouceChanged,
-            ),
-          ),
-          SizedBox(
-            height: 30,
-            child: RadioListTile<Souce>(
-              title: const Text('Кисло-сладкий'),
-              value: Souce.kislslad,
-              groupValue: _souce,
-              onChanged: _onSouceChanged,
-            ),
-          ),
-          SizedBox(
-            height: 30,
-            child: RadioListTile<Souce>(
-              title: const Text('Сырный'),
-              value: Souce.sirn,
-              groupValue: _souce,
-              onChanged: _onSouceChanged,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 5.0),
-            child: Divider(),
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: Card(
-              elevation: 8,
-              color: Color(0xFFF0F0F0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      right: 20,
-                    ),
-                    child: SizedBox(
-                      width: 70,
-                      height: 70,
-                      child: Image.network(
-                        'https://cdn.cnn.com/cnnnext/dam/assets/211125191831-01-europe-best-cheeses-112521-full-169.jpg',
-                      ),
-                    ),
-                  ),
-                  Text('Дополнительный сыр'),
-                  Switch(
-                    value: _addCheese,
-                    onChanged: (bool value) {
-                      setState(() {
-                        _addCheese = value;
-                        _calcCost();
-                      });
-                    },
-                    activeThumbImage: new NetworkImage(
-                        'https://www.freeiconspng.com/thumbs/yes-png/yes-png-9.png'),
-                    inactiveThumbImage: new NetworkImage(
-                        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/No_sign.svg/300px-No_sign.svg.png'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                "Рассчитанная стоимость: ${_calcCost()} руб.",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
+              child: SizedBox(
+                width: 70,
+                height: 70,
+                child: Image.network(
+                  'https://cdn.cnn.com/cnnnext/dam/assets/211125191831-01-europe-best-cheeses-112521-full-169.jpg',
                 ),
               ),
             ),
-          ),
-          ElevatedButton(
-            style: buyBtnStyle,
-            onPressed: () {},
-            child: const Text('Заказать'),
-          ),
-        ],
+            Text('Дополнительный сыр'),
+            Switch(
+              value: _addCheese,
+              onChanged: (bool value) {
+                setState(() {
+                  _addCheese = value;
+                  _calcCost();
+                });
+              },
+              activeThumbImage: new NetworkImage(
+                  'https://www.freeiconspng.com/thumbs/yes-png/yes-png-9.png'),
+              inactiveThumbImage: new NetworkImage(
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/No_sign.svg/300px-No_sign.svg.png'),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
+  }
+
+  SlidingSwitch tipTestaSlidingSwitchWidget() {
+    return SlidingSwitch(
+      value: _isTonkoeTesto,
+      width: 280,
+      onChanged: (bool value) {
+        _isTonkoeTesto = value;
+        setState(() {
+          _calcCost();
+        });
+      },
+      height: 35,
+      animationDuration: const Duration(milliseconds: 400),
+      onTap: () {},
+      onDoubleTap: () {},
+      onSwipe: () {},
+      textOff: "Обычное тесто",
+      textOn: "Тонкое тесто",
+      colorOn: const Color(0xffdc6c73),
+      colorOff: const Color(0xff6682c0),
+      background: const Color(0xffe4e5eb),
+      buttonColor: const Color(0xfff7f5f7),
+      inactiveColor: const Color(0xff636f7b),
+    );
+  }
+
+  SizedBox souceSirniiWidget() {
+    return SizedBox(
+      height: 30,
+      child: RadioListTile<Souce>(
+        title: Text('Сырный'),
+        value: Souce.sirn,
+        groupValue: _souce,
+        onChanged: _onSouceChanged,
+      ),
+    );
+  }
+
+  SizedBox souceKisliiWidget() {
+    return SizedBox(
+      height: 30,
+      child: RadioListTile<Souce>(
+        title: Text('Кисло-сладкий'),
+        value: Souce.kislslad,
+        groupValue: _souce,
+        onChanged: _onSouceChanged,
+      ),
+    );
+  }
+
+  SizedBox souceOstriiWidget() {
+    return SizedBox(
+      height: 30,
+      child: RadioListTile<Souce>(
+        title: Text('Острый'),
+        value: Souce.ostr,
+        groupValue: _souce,
+        onChanged: _onSouceChanged,
+      ),
+    );
+  }
+
+  Slider pizzaSizeSliderWidget_method() {
+    return Slider(
+      value: _pizzaRadius.toDouble(),
+      min: 15,
+      max: 60,
+      divisions: 3,
+      label: _pizzaRadius.round().toString(),
+      onChanged: (double value) {
+        setState(() {
+          _pizzaRadius = value.toInt();
+          setState(() {
+            _calcCost();
+          });
+        });
+      },
+    );
   }
 }
