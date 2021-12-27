@@ -17,7 +17,7 @@ class PizzaApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: appTitle,
-      theme: globalThemeLight(),
+      theme: globalThemeDark(),
       home: const PizzaAppHomePage(),
     );
   }
