@@ -162,9 +162,11 @@ class _PizzaAppHomePageState extends State<PizzaAppHomePage> {
                 ),
               ),
             ),
-            Text(
-              'Дополнительный сыр',
-              style: Theme.of(context).textTheme.subtitle1,
+            Expanded(
+              child: Text(
+                'Дополнительный сыр',
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
             ),
             Switch(
               value: _addCheese,
